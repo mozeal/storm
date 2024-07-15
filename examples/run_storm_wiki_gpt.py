@@ -39,8 +39,11 @@ def main(args):
         'temperature': 1.0,
         'top_p': 0.9,
         'api_base': os.getenv('AZURE_API_BASE'),
-        'api_version': os.getenv('AZURE_API_VERSION'),
+        #'api_version': os.getenv('AZURE_API_VERSION'),
     }
+
+    if openai_kwargs['api_provider'] == 'azure':
+        openai_kwargs['api_version'] = os.getenv('AZURE_API_VERSION')
 
     # STORM is a LM system so different components can be powered by different models.
     # For a good balance between cost and quality, you can choose a cheaper/faster model for conv_simulator_lm
@@ -58,6 +61,8 @@ def main(args):
     lm_configs.set_outline_gen_lm(outline_gen_lm)
     lm_configs.set_article_gen_lm(article_gen_lm)
     lm_configs.set_article_polish_lm(article_polish_lm)
+
+    print( 'args: ', args )
 
     engine_args = STORMWikiRunnerArguments(
         output_dir=args.output_dir,

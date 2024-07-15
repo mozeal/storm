@@ -23,3 +23,5 @@ secrets.toml
 *.log
 */assertion.log
 *results/
+
+output/
