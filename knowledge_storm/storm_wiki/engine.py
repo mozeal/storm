@@ -379,13 +379,16 @@ class STORMWikiRunner(Engine):
             "No action is specified. Please set at least one of --do-research, --do-generate-outline, --do-generate-article, --do-polish-article"
         )
 
+        print( f"Running STORM for topic: {topic}" )
         self.topic = topic
         self.article_dir_name = truncate_filename(
             topic.replace(" ", "_").replace("/", "_")
         )
-        self.article_output_dir = os.path.join(
-            self.args.output_dir, self.article_dir_name
-        )
+        #self.article_output_dir = os.path.join(
+        #    self.args.output_dir, self.article_dir_name
+        #)
+        self.article_output_dir = self.args.output_dir  # Jimmy
+        
         os.makedirs(self.article_output_dir, exist_ok=True)
 
         # research module
@@ -443,3 +446,5 @@ class STORMWikiRunner(Engine):
             self.run_article_polishing_module(
                 draft_article=draft_article, remove_duplicate=remove_duplicate
             )
+            
+        print( f"Storm DONE" )
